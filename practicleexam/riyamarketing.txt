@@ -1,0 +1,241 @@
+INSERT INTO `reward_achiever`(`memberid`, `entrydate`, `reward_description`) SELECT b.memberid,'',r.reward_description FROM `binaryprocessing` b,`param_reward` r GROUP 
+reward_achiever where reward_description='Helmet')
+
+SELECT b.memberid as 'Member',r.reward_description as 'Disc' , r.id as 'rewardid' FROM `binaryprocessing` b,`param_reward` r GROUP BY b.memberid,r.pair_from,r.pair_to 
+
+HAVING sum(b.matchpair)>=r.pair_from and sum(b.matchpair)<=r.pair_to and rewardid not in(select memberid from reward_achiever  where rewardid=reward_id)
+
+INSERT INTO `reward_achiever`(`memberid`, `entrydate`, `reward_description`,`reward_id`) SELECT b.memberid as 'Member','$d',r.reward_description as 'Disc' , r.id as 
+
+'rewardid' FROM `binaryprocessing` b,`param_reward` r GROUP BY b.memberid,r.pair_from,r.pair_to HAVING sum(b.matchpair)>=r.pair_from and sum(b.matchpair)<=r.pair_to 
+
+and Member not in(select memberid from reward_achiever  where rewardid=reward_id
+
+
+
+
+
+
+SELECT COUNT(memberid),earnedid,levelno FROM `regdetail` GROUP by levelno
+
+SELECT COUNT(memberid),earnedid,levelno FROM `regdetail` GROUP by earnedid,levelno
+
+SELECT COUNT(r.memberid),r.earnedid,r.levelno,rc.team,rc.joining_bonus FROM `regdetail` r,reward_commission rc GROUP by r.earnedid,r.levelno,rc.level HAVING 
+
+r.levelno=rc.level
+
+SELECT COUNT(r.memberid)as 'memberid',r.earnedid,r.levelno,rc.team,rc.joining_bonus,rc.level FROM `regdetail` r,reward_commission rc WHERE rc.level=r.levelno GROUP by 
+
+r.earnedid,r.levelno,rc.team HAVING COUNT(r.memberid)>=rc.team
+
+
+
+INSERT INTO `bonus_income`(`memberid`, `member`, `level`, `bonus`) SELECT r.earnedid,COUNT(r.memberid)as 'memberid',rc.level,rc.joining_bonus FROM `regdetail` 
+
+r,reward_commission rc WHERE rc.level=r.levelno GROUP by r.earnedid,r.levelno,rc.team HAVING COUNT(r.memberid)>=rc.team 
+
+INSERT INTO `bonus_income`(`memberid`, `member`, `level`, `bonus`) SELECT r.earnedid as 'earnedid',COUNT(r.memberid)as 'memberid',rc.level as 
+
+'levelid',rc.joining_bonus FROM `regdetail` r,reward_commission rc WHERE rc.level=r.levelno GROUP by r.earnedid,r.levelno,rc.team HAVING COUNT(r.memberid)>=rc.team and 
+
+earnedid not in(select memberid from bonus_income  where levelid=level)
+
+
+
+==================================================================================================
+
+SELECT COUNT(r.memberid) as 'member',r.sponsorid,r.activationdate as 'ac',DATE_ADD(r.activationdate, INTERVAL 30 DAY) as after,b.entry_date  FROM `registration` 
+r,`bonus_income` b where r.memberid=b.memberid AND b.entry_date BETWEEN r.activationdate and DATE_ADD(r.activationdate, INTERVAL 30 DAY) AND member>=3  GROUP by 
+
+r.sponsorid
+===================================================
+Bitcoin
+ SELECT entrydate,amount as 'Amount' FROM `roiincome` where memberid='```'
+    SELECT memberid,sum(amount) as 'Amount' FROM `directreferal` GROUP by memberid    
+
+
+SELECT count(memberid),sponsorid ,DATE_ADD(r.activationdate, INTERVAL 30 DAY) as after  from registration GROUP BY sponsorid HAVING COUNT(memberid)>=3
+
+SELECT A.memberid,A.activationdate as 'memberactivedate',A.sponsorid,B.activationdate as 'sponsoractivedate' FROM `registration` A left JOIN registration B ON 
+
+A.sponsorid=B.memberid
+
+SELECT A.memberid ,A.activationdate as 'memberactivedate',A.sponsorid,B.activationdate as 'sponsoractivedate' FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.sponsorid='100002' ORDER BY memberactivedate desc
+
+SELECT count(A.memberid),max(A.activationdate) as 'memberactivedate',A.sponsorid,B.activationdate as 'sponsoractivedate' FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid GROUP by A.sponsorid having count(A.memberid)=3 ORDER BY memberactivedate desc
+
+
+=============================================
+SELECT A.memberid,A.activationdate as 'memberactivedate',A.sponsorid,B.activationdate as 'sponsoractivedate',DATE_ADD(B.activationdate, INTERVAL 30 DAY) as 'after' 
+
+FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.activationdate>=B.activationdate and A.activationdate<=B.activationdate
+
+SELECT COUNT(A.memberid),A.memberid as 'member',A.activationdate as 'memberactivedate',A.sponsorid,B.activationdate as 'sponsoractivedate',DATE_ADD(B.activationdate, 
+
+INTERVAL 30 DAY) as 'after' 
+FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.activationdate BETWEEN B.activationdate and DATE_ADD(B.activationdate, INTERVAL 30 
+
+DAY) GROUP by sponsorid
+
+update registration a inner join (SELECT COUNT(A.memberid),A.sponsorid,B.activationdate as 		'sponsoractivedate',DATE_ADD(B.activationdate, INTERVAL 30 DAY) 
+
+as 'after' FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.activationdate BETWEEN B.activationdate and DATE_ADD(B.activationdate, 
+
+INTERVAL 30 DAY) GROUP by sponsorid) b on (a.memberid = b.sponsorid) set a.reward_achiever='yes'
+
+
+
+
+SELECT COUNT(A.memberid),A.sponsorid,B.activationdate as 'sponsoractivedate',DATE_ADD(B.activationdate, INTERVAL 30 DAY) as 'after' 
+FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.activationdate BETWEEN B.activationdate and DATE_ADD(B.activationdate, INTERVAL 30 
+
+DAY) GROUP by sponsorid
+
+update registration a inner join (SELECT COUNT(A.memberid),A.sponsorid,B.activationdate as 'sponsoractivedate',DATE_ADD(B.activationdate, INTERVAL 30 DAY) as 'after' 
+FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.activationdate BETWEEN B.activationdate and DATE_ADD(B.activationdate, INTERVAL 30 
+DAY) GROUP by sponsorid) b on (a.memberid = b.sponsorid) set a.reward_achiever='yes'
+
+
+==================================================
+
+SELECT r.earnedid as 'earnedid',COUNT(r.memberid)as 'memberid',rc.level as 'levelid',rc.joining_bonus,rg.reward_achiever,rg.memberid,rc.reward FROM `regdetail`
+r,reward_commission rc,registration rg WHERE rc.level=r.levelno AND rg.memberid=r.memberid and rg.reward_achiever='Yes' GROUP by r.earnedid,r.levelno,rc.team HAVING 
+
+COUNT(r.memberid)>=rc.team
+
+
+
+=============================================
+
+SELECT r.memberid,r.reward_achiever,rc.team,rc.reward FROM `registration` r,regdetail reg,reward_commission rc WHERE  r.memberid=reg.memberid AND  
+
+reward_achiever='Yes'  GROUP by reg.earnedid,rc.team HAVING COUNT(reg.memberid)>=rc.team
+
+
+
+SELECT reg.memberid,r.reward_achiever,rc.team,rc.reward,rc.level FROM `registration` r,regdetail reg,reward_commission rc WHERE  r.memberid=reg.memberid AND  
+
+reward_achiever='Yes'  GROUP by reg.earnedid,rc.team HAVING COUNT(reg.memberid)>=rc.team
+
+=================================================================
+SELECT a.earnedid,a.levelno,c.reward,c.team as 'team' from regdetail as a,registration as b,reward_commission as c WHERE a.earnedid='100005' AND a.levelno>5 and 
+
+a.levelno<21 and 
+a.earnedid=b.memberid and b.reward_achiever='Yes' and a.levelno=c.level GROUP BY a.earnedid HAVING COUNT(a.memberid)>=team
+
+
+
+=====================reward income=====================
+SELECT a.earnedid,a.levelno,c.reward,c.team as 'team' from regdetail as a,registration as b,reward_commission as c WHERE  a.levelno>5 and a.levelno<21 and 
+a.earnedid=b.memberid and b.reward_achiever='Yes' and a.levelno=c.level GROUP BY a.earnedid,c.level HAVING COUNT(a.memberid)>=team
+
+
+==========================================================queries=====================
+SELECT a.earnedid,a.levelno,c.reward,c.team as 'team' from regdetail as a,registration as b,reward_commission as c WHERE b.activationdate!='0000-00-00' and a.levelno>5 
+
+and a.levelno<21 and a.earnedid=b.memberid and b.reward_achiever='Yes' and a.levelno=c.level GROUP BY a.earnedid HAVING COUNT(a.memberid)>=teamc
+
+
+INSERT INTO `reward_income`(`entry_date`, `memberid`, `reward_income`, `team`) SELECT '2018-03-07',a.earnedid,c.reward,c.team as 'team' from regdetail as 
+
+a,registration as b,reward_commission as c WHERE b.activationdate!='0000-00-00' and a.levelno>5 
+and a.levelno<21 and a.earnedid=b.memberid and b.reward_achiever='Yes' and a.levelno=c.level GROUP BY a.earnedid HAVING COUNT(a.memberid)>=team
+
+
+
+
+===================reward inserted================
+INSERT INTO `reward_income`(`entry_date`, `memberid`, `reward_income`,`level`, `team`) SELECT '2018-03-07',a.earnedid as earnedid,c.reward,c.level as 
+'levelid',c.team as 'team' from regdetail as a,registration as b,reward_commission as c WHERE b.activationdate!='0000-00-00' and a.levelno>5 and a.levelno<21 and 
+
+a.earnedid=b.memberid and b.reward_achiever='Yes' and a.levelno=c.level GROUP BY a.earnedid HAVING COUNT(a.memberid)>=team and earnedid not in(select memberid from 
+
+bonus_income  where levelid=level)
+
+INSERT INTO `renewal_income`(`entry_date`, `memberid`, `renewal_income`) SELECT '$d',a.memberid,b.income FROM registration a,param_renewal_income b 
+WHERE a.renewal_lock='unlock' and a.expire_date=DATE_ADD(a.entrydate, INTERVAL 3 YEAR) and a.packagename=b.packagecode and memberid not in(select memberid from renewal_income`)
+
+
+
+============================ewallet bonus income========
+INSERT INTO `ewallet`(`entrydate`, `memberid`, `fromid`, `amount`, `status`, `remarks`, `transtype`, `mainentryno`, `tdspercent`, `wallettype`, `netamount`, `tds`, 
+
+`ac`, `income`) SELECT '2018-03-07',memberid,'',bonus,'paid','Bonus Income','Bonus Income','0','0','income wallet',bonus,'0','0','1' FROM `bonus_income`
+
+
+=================ewallet reward============
+INSERT INTO `ewallet`(`entrydate`, `memberid`, `fromid`, `amount`, `status`, `remarks`, `transtype`, `mainentryno`, `tdspercent`, `wallettype`, `netamount`, `tds`, 
+
+`ac`, `income`) SELECT '2018-03-07',memberid,'',reward_income,'paid','Reward Income','Reward Income','0','0','income wallet',reward_income,'0','0','1' FROM 
+
+`reward_income`
+
+
+==========================truncate======================
+
+delete FROM ewallet WHERE transtype='Bonus Income';
+DELETE FROM ewallet WHERE transtype='Reward Income';
+TRUNCATE regdetail;
+DELETE from registration WHERE memberid!='100001';
+TRUNCATE topupdetails;
+TRUNCATE reward_income;
+TRUNCATE bonus_income;
+TRUNCATE reward_mid;
+=================================sponsotid>=3,update to yes===============================
+update registration a inner join (SELECT COUNT(A.memberid),A.sponsorid,B.activationdate as 'sponsoractivedate',DATE_ADD(B.activationdate, INTERVAL 30 DAY) as 'after' 
+
+FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.activationdate BETWEEN B.activationdate and DATE_ADD(B.activationdate, INTERVAL 30 
+
+DAY) GROUP by sponsorid HAVING COUNT(memberid)>=3) b on (a.memberid = b.sponsorid) set a.reward_achiever='yes'
+
+select count(*),a.sponsorid,date(b.entrydate) as 'sponsoractive',DATE_ADD(b.entrydate, INTERVAL 30 DAY) as 'after' from registration a join registration b on a.sponsorid=b.memberid where  date(a.entrydate) BETWEEN date(b.entrydate) and DATE_ADD(date(b.entrydate), INTERVAL 30 DAY) GROUP by b.sponsorid HAVING COUNT(a.memberid)>=7
+
+
+SELECT a.entrydate as 'Joining Date', count(*) as 'sponsors',a.sponsorid as 'memberid' FROM `registration` a,registration b WHERE a.sponsorid=b.memberid and a.entrydate BETWEEN b.entrydate AND DATE_ADD(b.entrydate, INTERVAL 30 DAY) GROUP by a.sponsorid having count(*) >= 7
+
+=================================Reports widgets============================
+
+=============Widget display 0 or actual value=========================
+SELECT ifnull(sum(amount),0) FROM ewallet where memberid = '`memberid`'
+
+=====================
+http://grabdeal.net/
+http://grofers.com/
+http://www.k-space.com/
+http://grabholidays.net/
+http://www.archiesonline.com/
+
+AIYUBSHAH
+
+select count(a.memberid),a.sponsorid,b.activationdate as 'sponsoractive',DATE_ADD(b.activationdate, INTERVAL 30 DAY) as 'after' from registration a join registration b on a.sponsorid=b.memberid where  a.activationdate BETWEEN b.activationdate and DATE_ADD(b.activationdate, INTERVAL 30 DAY) GROUP by b.sponsorid HAVING COUNT(a.memberid)>=7
+
+select count(a.memberid),a.sponsorid,date(a.activationdate),DATE_ADD(date(a.activationdate), INTERVAL 30 DAY) as 'after' from registration a GROUP by a.sponsorid having count(memberid)>=7
+
+SELECT date(a.entrydate) as 'Joining Date', count(*) as 'sponsors',a.sponsorid as 'memberid' FROM `registration` a,registration b WHERE a.sponsorid=b.memberid and date(a.entrydate) BETWEEN date(b.entrydate) AND DATE_ADD(date(b.entrydate), INTERVAL 30 DAY) GROUP by a.sponsorid having count(*) >= 7
+
+SELECT memberid,activationdate,sponsorid FROM `registration` where sponsorid='723958' and activationdate between '2018-03-29' and '2018-04-28'
+
+
+INSERT INTO `reward_income`(`entry_date`, `memberid`, `reward_income`,`level`, `team`) SELECT '$d',a.earnedid as earnedid,c.reward,c.level as 'levelid',c.team as 'team' from regdetail as a,registration as b,param_reward_commission as c WHERE b.activationdate!='0000-00-00' and c.reward>0 and  a.levelno>5 and a.levelno<21 and  a.earnedid=b.memberid and b.reward_achiever='Yes' and a.levelno=c.level GROUP BY a.earnedid HAVING COUNT(a.memberid)>=team and earnedid not in(select memberid from reward_income where levelid=level) and earnedid not in(select memberid from reward_income where levelid=level)
+
+
+SELECT count(a.memberid),a.earnedid,a.levelno,b.memberid,b.reward_achiever FROM `regdetail` a,registration b where a.levelno>=6 and b.reward_achiever='yes' and a.earnedid=b.memberid GROUP BY a.earnedid,a.levelno
+
+INSERT INTO `reward_income`(`entry_date`, `memberid`, `reward_income`, `level`, `team`) SELECT '2018-03-09', a.earnedid,b.reward,a.level,a.total_member FROM `param_reward_commission` b,reward_mid a WHERE b.level>=6 and b.team>=64 and a.total_member=b.team
+
+SELECT count(a.memberid),a.earnedid,a.levelno,b.memberid,b.reward_achiever,c.reward,c.team,c.level FROM `regdetail` a,registration b,`param_reward_commission` c where a.levelno>=6 and b.reward_achiever='yes' and a.earnedid=b.memberid and c.level>=6 and c.team>=64 and count(a.memberid)=c.team GROUP BY a.earnedid
+
+INSERT INTO `reward_mid`(`total_member`, `earnedid`, `level`, `memberid`, `reward_achiever`) SELECT count(a.memberid),a.earnedid,a.levelno,b.memberid,b.reward_achiever FROM `regdetail` a,registration b where a.levelno>=6 and b.reward_achiever='yes' and a.earnedid=b.memberid GROUP BY a.earnedid,a.levelno
+
+
+update registration a inner join(SELECT COUNT(A.memberid),A.memberid as 'member',A.activationdate as 'memberactivedate',A.sponsorid,B.activationdate as 'sponsoractivedate',DATE_ADD(B.activationdate, INTERVAL 30 DAY) as 'after' 
+		FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.activationdate BETWEEN B.activationdate and DATE_ADD(B.activationdate, INTERVAL 30 DAY) GROUP by sponsorid HAVING COUNT(A.memberid)>=3) b on (a.memberid = b.sponsorid) set a.reward_achiever='yes'
+
+
+		
+		SELECT B.activationdate as 'Date',A.sponsorid as 'Memberid',COUNT(A.memberid) As 'Direct Downline Member'
+FROM `registration` A left JOIN registration B ON A.sponsorid=B.memberid WHERE A.reward_achiever='yes' and (A.activationdate BETWEEN B.activationdate and DATE_ADD(B.activationdate, INTERVAL 30 DAY)) GROUP by Memberid
+
+INSERT INTO `royalty_achive_member`(`entry_date`, `Memberid`, `achieve_tag`, `reserveper`, `amount`, `expire_date`, `direct_sponsor`,`status`) SELECT '$d',r.sponsorid as 'royal',pr.archive_tag,pr.reserveper,sum(t.amount),DATE_ADD('$d', INTERVAL 500 day) as 'Expire Date',count(r.memberid),'pending' FROM `registration` r join topupdetails t on r.memberid=t.memberid join param_royalty pr where t.active=1 GROUP by r.sponsorid,pr.reserveper,pr.reserveamount_from, pr.reserveamount_to,pr.direct_sponsor HAVING count(r.memberid)>=pr.direct_sponsor and sum(t.amount)>pr.reserveamount_from and sum(t.amount)<pr.reserveamount_to and concat(r.sponsorid,pr.archive_tag) not in (select concat(memberid,achieve_tag) from royalty_achive_member)
+
+update registration a inner join(select entry_date as 'date',memberid as 'memberid',reward as 'reward' from vmm_rewardincome) b on (a.memberid = b.memberid) set a.reward_achiever='yes'
